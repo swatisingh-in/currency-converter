@@ -26,15 +26,22 @@ const CurrencyConverter = (props) => {
   const [exchangeRate, setExchangeRate] = useState();
   const [userInputIsFromCurrency, setUserInputIsFromCurrency] = useState(true);
 
+  const todaysDate = new Date();
+  const endDate = todaysDate.toISOString().split('T')[0];
+  todaysDate.setMonth(todaysDate.getMonth() - 1);
+  const startDate = todaysDate.toISOString().split('T')[0];
+
   useEffect(async () => {
-    if (fromCurrency != null && toCurrency != null) {
+    if (fromCurrency && toCurrency) {
       const response = await axios.get(`${EXCHANGE_RATE_BASE_URL}?base=${fromCurrency}&symbols=${toCurrency}`);
       if (response.data && typeof response.data.rates === 'object' && response.data.rates != null) {
         setExchangeRate(response.data.rates[toCurrency]);
       }
 
-      const response = await axios.get(`https://api.exchangeratesapi.io/history?start_at=2021-03-10&end_at=2021-03-20&base=${fromCurrency}&symbols=${toCurrency}`);
-      setChartData(response.data.rates);
+      const chartResponse = await axios.get(`${EXCHANGE_RATE_HISTORY_URL}?start_at=${startDate}&end_at=${endDate}&base=${fromCurrency}&symbols=${toCurrency}`);
+      if (chartResponse != null && chartResponse.data.rates != null) {
+        updateChartData(data.id, chartResponse.data.rates);
+      }
     }
   }, [fromCurrency, toCurrency]);
 
