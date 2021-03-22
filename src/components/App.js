@@ -51,3 +51,24 @@ function App() {
     updateConversionData(newConversionData);
   };
 
+  const updateFromCurrency = (id, fromCurrency) => {
+    const newConversionData = conversionData.map((item) => {
+      if (item.id !== id) {
+        return item;
+      }
+      return { ...item, fromCurrency };
+    });
+
+    updateConversionData(newConversionData);
+  };
+
+  const updateToCurrency = (id, toCurrency) => {
+    const newConversionData = conversionData.map((item) => {
+      if (item.id !== id) {
+        return item;
+      }
+      return { ...item, toCurrency };
+    });
+
+    updateConversionData(newConversionData);
+  };
