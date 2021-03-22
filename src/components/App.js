@@ -90,6 +90,18 @@ function App() {
 
     updateConversionData(newConversionData);
   };
+
+  const updateChartData = (id, chartData) => {
+    const newConversionData = conversionData.map((item) => {
+      if (item.id !== id) {
+        return item;
+      }
+      return { ...item, chartData };
+    });
+
+    updateConversionData(newConversionData);
+  };
+
   return (
     <>
       <GlobalStyles />
@@ -133,6 +145,9 @@ function App() {
             }
           </ConversionRowWrapper>
         </ConversionContainer>
+        <GraphContainer>
+          <CurrencyChart conversionData={conversionData} />
+        </GraphContainer>
       </BaseContainer>
     </>
   );

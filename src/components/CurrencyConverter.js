@@ -1,8 +1,6 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import Select from 'react-select';
-import { Line } from 'react-chartjs-2/dist/react-chartjs-2';
-import { EXCHANGE_RATE_BASE_URL, CURRENCY_NAMES } from './constants';
+import PropTypes from 'prop-types';
+import axios from 'axios';
 
 function CurrencyConverter() {
   const [currencies, setCurrencies] = useState([]);
@@ -13,9 +11,14 @@ function CurrencyConverter() {
   const [userInputIsFromCurrency, setUserInputIsFromCurrency] = useState(true);
   const [chartData, setChartData] = useState({});
 
-  // Fetch available currencies from the API endpoint.
-  useEffect(async () => {
-    const { data } = await axios.get(EXCHANGE_RATE_BASE_URL);
+function CurrencyConverter(props) {
+  const {
+    currencies,
+    data,
+    updateFromCurrency,
+    updateToCurrency,
+    updateChartData,
+  } = props;
 
     if (data && data.base && typeof data.rates === 'object' && data.rates != null) {
       setFromCurrency(data.base);
@@ -113,5 +116,20 @@ function CurrencyConverter() {
     </div>
   );
 }
+
+CurrencyConverter.propTypes = {
+  currencies: PropTypes.arrayOf(PropTypes.shape({
+    value: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+  })).isRequired,
+  data: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    fromCurrency: PropTypes.string.isRequired,
+    toCurrency: PropTypes.string.isRequired,
+  }).isRequired,
+  updateFromCurrency: PropTypes.func.isRequired,
+  updateToCurrency: PropTypes.func.isRequired,
+  updateChartData: PropTypes.func.isRequired,
+};
 
 export default CurrencyConverter;
