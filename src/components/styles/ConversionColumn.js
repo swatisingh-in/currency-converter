@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 
 const ConversionColumn = styled.div`
-  width: 50%;
+  width: 100%;
+  
+  @media (min-width: 600px) {
+    width: 50%;
+  }
 `;
 
 export default ConversionColumn;
