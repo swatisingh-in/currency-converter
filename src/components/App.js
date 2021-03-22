@@ -32,3 +32,22 @@ function App() {
     }
   }, [currencies]);
 
+  const handleAddConversionRow = () => {
+    const newConversionData = conversionData.concat(
+      [{
+        id: generateRandomId(),
+        fromCurrency: currencies[0].value,
+        toCurrency: currencies[1].value,
+        chartBackgroundColor: getRandomColor(),
+        chartBorderColor: getRandomColor(),
+        chartData: {},
+      }],
+    );
+    updateConversionData(newConversionData);
+  };
+
+  const handleRemoveConversionRow = (id) => {
+    const newConversionData = conversionData.filter((item) => item.id !== id);
+    updateConversionData(newConversionData);
+  };
+
