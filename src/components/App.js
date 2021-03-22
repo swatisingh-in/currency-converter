@@ -23,3 +23,12 @@ function App() {
     }
   }, []);
 
+  useEffect(async () => {
+    if (currencies.length > 0) {
+      const newConversionData = [...conversionData];
+      newConversionData[0].fromCurrency = currencies[0].value;
+      newConversionData[0].toCurrency = currencies[1].value;
+      updateConversionData(newConversionData);
+    }
+  }, [currencies]);
+
