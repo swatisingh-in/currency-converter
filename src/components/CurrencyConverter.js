@@ -47,6 +47,15 @@ function CurrencyConverter(props) {
     setUserInputIsFromCurrency(false);
   };
 
+  let fromAmount = null;
+  let toAmount = null;
+  if (userInputIsFromCurrency) {
+    fromAmount = amount;
+    toAmount = exchangeRate ? amount * exchangeRate : '';
+  } else {
+    toAmount = amount;
+    fromAmount = exchangeRate ? amount / exchangeRate : '';
+  }
 
   return (
     <>
