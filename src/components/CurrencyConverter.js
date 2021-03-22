@@ -59,10 +59,10 @@ const CurrencyConverter = (props) => {
   let toAmount = null;
   if (userInputIsFromCurrency) {
     fromAmount = amount;
-    toAmount = exchangeRate ? amount * exchangeRate : '';
+    toAmount = exchangeRate ? (amount * exchangeRate).toFixed(2) : '';
   } else {
     toAmount = amount;
-    fromAmount = exchangeRate ? amount / exchangeRate : '';
+    fromAmount = exchangeRate ? (amount / exchangeRate).toFixed(2) : '';
   }
 
   return (
