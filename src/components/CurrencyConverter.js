@@ -11,13 +11,14 @@ import InputWrapper from './styles/InputWrapper';
 import Select from './styles/Select';
 import Button from './styles/Button';
 
-function CurrencyConverter(props) {
+const CurrencyConverter = (props) => {
   const {
     currencies,
     data,
     updateFromCurrency,
     updateToCurrency,
     updateChartData,
+    handleSwapCurrencies,
   } = props;
 
   const { fromCurrency, toCurrency } = data;
@@ -78,7 +79,13 @@ function CurrencyConverter(props) {
           />
         </InputWrapper>
       </ConversionColumn>
-      <Button icon={SwapIcon} type="button" aria-label="Swap currencies" />
+      <Button
+        icon={SwapIcon}
+        type="button"
+        aria-label="Swap currencies"
+        title="Swap currencies"
+        onClick={() => handleSwapCurrencies(data.id)}
+      />
       <ConversionColumn>
         <Label htmlFor="toCurrency">
           To
@@ -99,7 +106,7 @@ function CurrencyConverter(props) {
       </ConversionColumn>
     </>
   );
-}
+};
 
 CurrencyConverter.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.shape({
@@ -114,6 +121,7 @@ CurrencyConverter.propTypes = {
   updateFromCurrency: PropTypes.func.isRequired,
   updateToCurrency: PropTypes.func.isRequired,
   updateChartData: PropTypes.func.isRequired,
+  handleSwapCurrencies: PropTypes.func.isRequired,
 };
 
 export default CurrencyConverter;
