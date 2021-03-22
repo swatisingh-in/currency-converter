@@ -18,7 +18,6 @@ import AddIcon from '../images/add-icon.svg';
 import RemoveIcon from '../images/remove-icon.svg';
 import Logo from '../images/currency-icon.svg';
 
-function App() {
 const App = () => {
   const [currencies, setCurrencies] = useState([]);
   const [conversionData, updateConversionData] = useState(
@@ -144,6 +143,7 @@ const App = () => {
                         type="button"
                         onClick={handleAddConversionRow}
                         aria-label="Add conversion"
+                        title="New conversion"
                       />
                     ) : (
                       <Button
@@ -151,6 +151,7 @@ const App = () => {
                         type="button"
                         onClick={() => handleRemoveConversionRow(item.id)}
                         aria-label="Remove conversion"
+                        title="Remove Conversion"
                       />
                     )
                   }
