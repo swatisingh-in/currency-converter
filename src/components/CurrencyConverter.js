@@ -31,10 +31,11 @@ const CurrencyConverter = (props) => {
   todaysDate.setMonth(todaysDate.getMonth() - 1);
   const startDate = todaysDate.toISOString().split('T')[0];
 
+  // Fetch exchange rate and historical data for selected currencies.
   useEffect(async () => {
     if (fromCurrency && toCurrency) {
       const response = await axios.get(`${EXCHANGE_RATE_BASE_URL}?base=${fromCurrency}&symbols=${toCurrency}`);
-      if (response.data && typeof response.data.rates === 'object' && response.data.rates != null) {
+      if (response && response.data && typeof response.data.rates === 'object' && response.data.rates != null) {
         setExchangeRate(response.data.rates[toCurrency]);
       }
 
