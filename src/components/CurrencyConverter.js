@@ -49,42 +49,46 @@ function CurrencyConverter(props) {
 
 
   return (
-    <div>
-      Convert currency
-      <label htmlFor="fromCurrency">
-        From
-        <input
-          id="fromCurrency"
-          type="number"
-          value={userInputIsFromCurrency ? amount : amount / exchangeRate}
-          onChange={handleChangeInFromAmount}
-        />
-      </label>
-      <Select
-        options={currencies}
-        value={currencies.filter((currency) => currency.value === fromCurrency)}
-        onChange={(event) => setFromCurrency(event.value)}
-      />
-
-      <br />
-
-      <label htmlFor="toCurrency">
-        to
-        <input
-          id="toCurrency"
-          type="number"
-          value={!userInputIsFromCurrency ? amount : amount * exchangeRate}
-          onChange={handleChangeInToAmount}
-        />
-      </label>
-      <Select
-        options={currencies}
-        value={currencies.filter((currency) => currency.value === toCurrency)}
-        onChange={(event) => setToCurrency(event.value)}
-      />
-
-      <Line data={data} options={options} />
-    </div>
+    <>
+      <ConversionColumn>
+        <Label htmlFor="fromCurrency">
+          Amount
+        </Label>
+        <InputWrapper>
+          <Input
+            autoFocus
+            id="fromCurrency"
+            type="number"
+            value={fromAmount}
+            onChange={handleChangeInFromAmount}
+          />
+          <Select
+            options={currencies}
+            value={currencies.filter((currency) => currency.value === fromCurrency)}
+            onChange={(event) => updateFromCurrency(data.id, event.value)}
+          />
+        </InputWrapper>
+      </ConversionColumn>
+      <Button icon={SwapIcon} type="button" aria-label="Swap currencies" />
+      <ConversionColumn>
+        <Label htmlFor="toCurrency">
+          To
+        </Label>
+        <InputWrapper marginLeft>
+          <Input
+            id="toCurrency"
+            type="number"
+            value={toAmount}
+            onChange={handleChangeInToAmount}
+          />
+          <Select
+            options={currencies}
+            value={currencies.filter((currency) => currency.value === toCurrency)}
+            onChange={(event) => updateToCurrency(data.id, event.value)}
+          />
+        </InputWrapper>
+      </ConversionColumn>
+    </>
   );
 }
 
