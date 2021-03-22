@@ -2,6 +2,8 @@
 
 Currency Converter is a web app which allows user to convert one currency to another. To accomplish the task this app is using data from `https://exchangeratesapi.io/` API.
 
+Deployed at: `https://currency-converter-app-2021.herokuapp.com/`
+
 This app allows the user to:
 
 - Select the source and target currencies.
