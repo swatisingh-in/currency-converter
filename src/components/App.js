@@ -19,6 +19,7 @@ import RemoveIcon from '../images/remove-icon.svg';
 import Logo from '../images/currency-icon.svg';
 
 function App() {
+const App = () => {
   const [currencies, setCurrencies] = useState([]);
   const [conversionData, updateConversionData] = useState(
     [{
@@ -91,6 +92,19 @@ function App() {
     updateConversionData(newConversionData);
   };
 
+  const handleSwapCurrencies = (id) => {
+    const newConversionData = conversionData.map((item) => {
+      if (item.id !== id) {
+        return item;
+      }
+      const newFormCurrency = item.toCurrency;
+      const newToCurrency = item.fromCurrency;
+      return { ...item, fromCurrency: newFormCurrency, toCurrency: newToCurrency };
+    });
+
+    updateConversionData(newConversionData);
+  };
+
   const updateChartData = (id, chartData) => {
     const newConversionData = conversionData.map((item) => {
       if (item.id !== id) {
@@ -120,7 +134,7 @@ function App() {
                     data={item}
                     updateFromCurrency={updateFromCurrency}
                     updateToCurrency={updateToCurrency}
-                    showRemoveButton={conversionData.length > 1}
+                    handleSwapCurrencies={handleSwapCurrencies}
                     updateChartData={updateChartData}
                   />
                   {
@@ -151,6 +165,6 @@ function App() {
       </BaseContainer>
     </>
   );
-}
+};
 
 export default App;
